@@ -1,0 +1,56 @@
+# macOS
+.DS_Store
+
+# Build products
+build/
+DerivedData/
+
+# Xcode user-specific settings
+**/xcuserdata/**
+**/*.xcuserstate/**
+**/*.xcbkptlist
+*.xcscmblueprint
+
+# Swift Package Manager
+.build/
+.swiftpm/
+# (팀 정책에 따라)
+# Package.resolved
+# **/swiftpm/Package.resolved
+
+# CocoaPods
+Pods/
+# Podfile.lock   # 팀에서 버전 고정 안 할 경우에만 무시
+
+# Carthage
+Carthage/Build/
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output
+
+# Archives
+*.xcarchive
+
+# iOS device logs
+*.crash
+
+# Playgrounds
+timeline.xctimeline
+playground.xcworkspace
+
+# AppCode
+.idea/
+
+# Temporary files
+*.swp
+*.lock
+*.moved-aside
+*.tmp
+
+# Xcode user-specific state (do not track)
+xcuserdata/
+*.xcuserstate
+*.xcuserdatad/

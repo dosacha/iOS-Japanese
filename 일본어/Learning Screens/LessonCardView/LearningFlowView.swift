@@ -53,7 +53,7 @@ struct LearningFlowView: View {
                 case 2:
                     Step2_DictationView(onComplete: advanceToNextStep, viewModel: viewModel)
                 case 3:
-                    Step3_SentenceBuilderView(onComplete: advanceToNextStep)
+                    Step3_SentenceBuilderView(onComplete: advanceToNextStep, viewModel: viewModel)
                 case 4:
                     Step4_VocabularyView(onComplete: advanceToNextStep, viewModel: viewModel)
                 case 5:

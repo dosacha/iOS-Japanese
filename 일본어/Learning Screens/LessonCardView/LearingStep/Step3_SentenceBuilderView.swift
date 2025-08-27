@@ -1,13 +1,19 @@
 // Step3_SentenceBuilderView.swift
+// 본문 ScrollView 안에 영상 포함(인트로 분기 제거)
+
 import SwiftUI
 import AVKit
+import UniformTypeIdentifiers
 
 struct Step3_SentenceBuilderView: View {
     var onComplete: () -> Void
+    @ObservedObject var viewModel: PlayerViewModel
 
+    // 데이터
     private let originalWords = ["안","녕","하하하","하","하","하","하","하","하","하","하","세","요"]
-    let correctSentence = ["안","녕","하하하","하","하","하","하","하","하","하","하","세","요"]
+    let correctSentence      = ["안","녕","하하하","하","하","하","하","하","하","하","하","세","요"]
 
+    // 상태
     @State private var selectedWords: [String] = []
     @State private var availableWords: [String] = []
     @State private var hasSubmitted = false
@@ -16,13 +22,7 @@ struct Step3_SentenceBuilderView: View {
     @State private var showResultView = false
     @State private var resultType: ResultType? = nil
     @State private var draggedItem: String? = nil
-    @State private var hasFinishedIntroVideo = false
     @State private var showStep3Content = false
-
-    // 데모 플레이어 (필요하면 PlayerViewModel 로 교체 가능)
-    @State private var player = AVPlayer(
-        url: Bundle.main.url(forResource: "ハイキュー北信介名言 [it3tKC0ycu4]", withExtension: "mp4")!
-    )
 
     enum ResultType { case correct, wrong }
 
@@ -32,28 +32,26 @@ struct Step3_SentenceBuilderView: View {
             buttonReservedHeight: 84,
             horizontalMargin: 16
         ) {
-            // ▶︎ 콘텐츠
-            VStack(spacing: 10) {
-                Text("Step 3: 문장 완성하기")
-                    .font(.title).fontWeight(.bold)
-                    .foregroundColor(.black)
-                    .padding(.top, 30)
+            // ▶︎ 본문(영상 포함)
+            ScrollView {
+                VStack(spacing: 10) {
+                    Text("Step 3: 문장 완성하기")
+                        .font(.title).fontWeight(.bold)
+                        .foregroundColor(.black)
+                        .padding(.top, 30)
 
-                Text("단어를 순서에 맞게 배열하여 문장을 완성하세요.")
-                    .font(.subheadline)
-                    .foregroundStyle(.gray)
+                    Text("단어를 순서에 맞게 배열하여 문장을 완성하세요.")
+                        .font(.subheadline)
+                        .foregroundStyle(.gray)
 
-                if !hasFinishedIntroVideo {
                     Spacer().frame(height: 25)
-                    CustomAVPlayerView(player: player)
+
+                    // ⬇️ 요청대로 본문 안에 영상 삽입
+                    CustomAVPlayerView(player: viewModel.player)
                         .frame(height: 250)
                         .cornerRadius(20)
-                        .padding(.horizontal)
-                        .transition(.opacity)
-                    Spacer()
-                }
+                        .padding(.horizontal, 16)
 
-                if hasFinishedIntroVideo {
                     Spacer()
 
                     // 선택 영역
@@ -75,7 +73,7 @@ struct Step3_SentenceBuilderView: View {
                                     draggedItem = word
                                     return NSItemProvider(object: word as NSString)
                                 }
-                                .onDrop(of: [.text], delegate: WordDropDelegate(
+                                .onDrop(of: [UTType.text], delegate: WordDropDelegate(
                                     currentItem: word,
                                     items: $selectedWords,
                                     draggedItem: $draggedItem
@@ -115,50 +113,38 @@ struct Step3_SentenceBuilderView: View {
                     }
                     .padding()
                 }
+                .padding(.bottom, 12)
+                .allowsHitTesting(!showResultView)
             }
-            .padding(.bottom, 12)
-            .allowsHitTesting(!showResultView)
         } button: {
-            // ▶︎ 하단 비율 고정 버튼 영역 (두 개 버튼을 함께 배치)
-            if hasFinishedIntroVideo {
-                HStack(spacing: 12) {
-                    // 다시 하기
-                    Button {
-                        resetSentence()
-                    } label: {
-                        Text("다시 하기")
-                            .fontWeight(.semibold)
-                            .frame(maxWidth: .infinity)
-                            .padding()
-                    }
-                    .frame(height: 52)
-                    .background(Color.gray.opacity(0.6))
-                    .foregroundColor(.white)
-                    .cornerRadius(15)
-                    .disabled(hasSubmitted)
-                    .opacity(hasSubmitted ? 0.5 : 1)
-
-                    // 제출하기
-                    AppButton(title: "제출하기") {
-                        checkAnswer()
-                    }
-                    // AppButton 이 가진 외부 padding 상쇄 (비율 레일에 딱 맞추려면 필요)
-                    .padding(.horizontal, -16)
-                    .padding(.bottom, -10)
-                    .frame(height: 52)
+            // ▶︎ 하단 버튼: 인트로 분기 제거 → 항상 노출
+            HStack(spacing: 12) {
+                Button {
+                    resetSentence()
+                } label: {
+                    Text("다시 하기")
+                        .fontWeight(.semibold)
+                        .frame(maxWidth: .infinity)
+                        .padding()
                 }
-            } else {
-                // 인트로 영상 중에는 버튼 숨김 (레이아웃 안정)
-                EmptyView()
+                .frame(height: 52)
+                .background(Color.gray.opacity(0.6))
+                .foregroundColor(.white)
+                .cornerRadius(15)
+                .disabled(hasSubmitted)
+                .opacity(hasSubmitted ? 0.5 : 1)
+
+                AppButton(title: "제출하기") {
+                    checkAnswer()
+                }
+                .padding(.horizontal, -16)
+                .padding(.bottom, -10)
+                .frame(height: 52)
             }
         }
-        // ▶︎ 결과 모달 (오버레이)
         .overlay {
             if showResultView {
-                Color.black.opacity(0.35)
-                    .ignoresSafeArea()
-                    .transition(.opacity)
-
+                Color.black.opacity(0.35).ignoresSafeArea().transition(.opacity)
                 VStack {
                     Spacer()
                     VStack(spacing: 16) {
@@ -226,22 +212,13 @@ struct Step3_SentenceBuilderView: View {
                 .animation(.easeInOut(duration: 0.25), value: showResultView)
             }
         }
-        // ▶︎ 라이프사이클
         .onAppear {
             resetSentence()
-            withAnimation(.easeOut(duration: 0.6).delay(0.2)) {
-                showStep3Content = true
-            }
-            NotificationCenter.default.addObserver(
-                forName: .AVPlayerItemDidPlayToEndTime,
-                object: player.currentItem,
-                queue: .main
-            ) { _ in
-                withAnimation(.easeInOut(duration: 0.6)) {
-                    hasFinishedIntroVideo = true
-                }
-            }
-            player.play()
+            withAnimation(.easeOut(duration: 0.6).delay(0.2)) { showStep3Content = true }
+            // 자동재생 제거: 필요하면 여기서 viewModel.player.play() 호출
+        }
+        .onDisappear {
+            viewModel.player.pause()
         }
     }
 
@@ -255,7 +232,6 @@ struct Step3_SentenceBuilderView: View {
             withAnimation(.spring()) { showResultView = true }
             return
         }
-
         if selectedWords == correctSentence {
             highlightColor = .green
             resultType = .correct
@@ -288,7 +264,8 @@ struct WordDropDelegate: DropDelegate {
     @Binding var draggedItem: String?
 
     func dropEntered(info: DropInfo) {
-        guard let draggedItem, draggedItem != currentItem,
+        guard let draggedItem,
+              draggedItem != currentItem,
               let fromIndex = items.firstIndex(of: draggedItem),
               let toIndex = items.firstIndex(of: currentItem) else { return }
 

@@ -101,9 +101,9 @@ struct Step4_VocabularyView: View {
 
     var body: some View {
         RatioAnchoredButtonLayout(
-            buttonYRatio: 0.90,           // ✅ Step1 과 동일
-            buttonReservedHeight: 84,     // ✅ Step1 과 동일
-            horizontalMargin: 16          // ✅ Step1 과 동일
+            buttonYRatio: 0.90,           
+            buttonReservedHeight: 84,
+            horizontalMargin: 16
         ) {
             // 콘텐츠는 필요 시 스크롤되도록
             ScrollView {

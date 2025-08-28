@@ -7,7 +7,6 @@ struct LessonCardView: View {
     // 색상 프리셋
     private let cardPinkTop    = Color(red: 1.00, green: 0.92, blue: 0.94) // 연핑크 상단
     private let cardPinkBottom = Color(red: 1.00, green: 0.88, blue: 0.90) // 연핑크 하단
-    private let buttonFill     = Color(red: 1.00, green: 0.97, blue: 0.94) // 버튼 베이지 톤
 
     var body: some View {
         VStack(alignment: .leading, spacing: 16) {
@@ -52,13 +51,13 @@ struct LessonCardView: View {
                     .padding(.horizontal, 20)
                     .padding(.vertical, 12)
                     .frame(minWidth: 220) // 필요시 버튼 너비 고정 느낌
-                    .background(buttonFill)
+                    .background(Color.white)
                     .clipShape(RoundedRectangle(cornerRadius: 18, style: .continuous))
                     .overlay(
                         RoundedRectangle(cornerRadius: 18, style: .continuous)
                             .stroke(Color.black.opacity(0.08), lineWidth: 1)
                     )
-                    // 🔻 그림자 제거
+                    // 그림자 제거
                     //.shadow(color: .black.opacity(0.12), radius: 8, x: 0, y: 4)
                 }
                 .buttonStyle(.plain)

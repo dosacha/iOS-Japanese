@@ -111,7 +111,7 @@ fileprivate struct HeaderAndVideoView: View {
                 .cornerRadius(20)
                 .padding(.horizontal)
         }
-        // ✅ 이 Step 들어오면 0초부터 재생, 나가면 일시정지
+        // 이 Step 들어오면 0초부터 재생, 나가면 일시정지
         .onAppear { viewModel.playFromStart() }
         .onDisappear { viewModel.pause() }
     }

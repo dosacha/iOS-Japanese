@@ -135,7 +135,7 @@ fileprivate struct ConversationCardLeftAligned: View {
     var cardMinHeight: CGFloat = 130
 
     var body: some View {
-        VStack(alignment: .leading, spacing: 8) { // ✅ 전체 간격 좁힘
+        VStack(alignment: .leading, spacing: 8) { // 전체 간격 좁힘
             // 한국어 문장 (왼쪽 정렬)
             Text("오늘은 기분이 좋아요")
                 .font(.subheadline)
@@ -151,7 +151,7 @@ fileprivate struct ConversationCardLeftAligned: View {
 
             // 학습하기 버튼 (왼쪽 정렬)
             Button(action: onTapLearn) {
-                HStack(spacing: 6) { // ✅ 버튼 내부 간격도 약간 좁힘
+                HStack(spacing: 6) { // 버튼 내부 간격도 약간 좁힘
                     Image(systemName: "play.fill")
                     Text("학습하기")
                         .fontWeight(.semibold)

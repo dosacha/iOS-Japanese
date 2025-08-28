@@ -123,7 +123,7 @@ final class SpeechPlayer {
         synth.stopSpeaking(at: .immediate)
         
         for (idx, token) in chunks.enumerated() {
-            // ✅ 대상이면 같은 모라 2회로 늘림
+            // 대상이면 같은 모라 2회로 늘림
             let speakText = shouldElongate(token) ? elongatedStringByRepetition(for: token) : token
             
             let u = AVSpeechUtterance(string: speakText)
@@ -209,7 +209,7 @@ struct KanaDetailView: View {
                         .fontWeight(.bold)
                         .foregroundColor(.black)
                     
-                    // ✅ 발음 재생 버튼 (UI/색상 그대로)
+                    // 발음 재생 버튼 (UI/색상 그대로)
                     Button {
                         SpeechPlayer.shared.speakJapanese(character.kana)
                     } label: {
@@ -235,7 +235,7 @@ struct KanaDetailView: View {
         .cornerRadius(30)
         .shadow(color: .black.opacity(0.15), radius: 20)
         .padding(30)
-        // ✅ 닫기 버튼
+        // 닫기 버튼
         .overlay(
             Button(action: onClose) {
                 Image(systemName: "xmark.circle.fill")

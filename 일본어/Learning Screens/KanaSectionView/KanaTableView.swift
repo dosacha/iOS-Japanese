@@ -12,7 +12,7 @@ struct KanaTableView: View {
 
     var body: some View {
         ZStack {
-            // ✅ 전체 배경: 연핑크(#FFDADA)
+            // 전체 배경: 연핑크(#FFDADA)
             Color(red: 1.0, green: 0.8549, blue: 0.8549)
                 .ignoresSafeArea()
             
@@ -27,7 +27,7 @@ struct KanaTableView: View {
                                     selectedCharacter = char
                                 }
                             } label: {
-                                KanaCellView(character: char)  // 🔹 버튼 타일(흰 배경+검정 글씨)
+                                KanaCellView(character: char)  // 버튼 타일(흰 배경+검정 글씨)
                             }
 
                         case .empty:
@@ -43,7 +43,7 @@ struct KanaTableView: View {
             .blur(radius: selectedCharacter == nil ? 0 : 4)
             .animation(.easeInOut(duration: 0.2), value: selectedCharacter != nil)
 
-            // ✅ 팝업: 딤 + 카드 등장
+            // 팝업: 딤 + 카드 등장
             if let c = selectedCharacter {
                 // 딤 배경
                 Color.black.opacity(0.25)

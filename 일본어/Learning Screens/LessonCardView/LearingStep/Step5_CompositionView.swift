@@ -152,7 +152,7 @@ struct WordRow: View {
                     let willOn = !isBookmarked
                     isBookmarked = willOn
 
-                    // ✅ 즉시 영구 저장: Step5 → 오늘의 학습
+                    // 즉시 영구 저장: Step5 → 오늘의 학습
                     let vocab = VocabItem(kanji: kanji, furigana: furigana, korean: meaning, dayTag: "Day1")
                     var learning = VocabularyStorage.shared.loadLearning()
                     learning = learning.toggled(vocab, isOn: willOn)

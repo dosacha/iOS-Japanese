@@ -36,7 +36,7 @@ struct Step2_DictationView: View {
             buttonReservedHeight: 84,
             horizontalMargin: 16
         ) {
-            // ⬇︎ 콘텐츠 영역 (기존 구성 유지)
+            // 콘텐츠 영역 (기존 구성 유지)
             VStack(spacing: 10) {
                 HeaderAndVideoView(viewModel: viewModel)
 
@@ -55,7 +55,7 @@ struct Step2_DictationView: View {
                 Spacer()
             }
         } button: {
-            // ⬇︎ 비율 고정 버튼 (정답 또는 오답 공개 이후에만 노출)
+            // 비율 고정 버튼 (정답 또는 오답 공개 이후에만 노출)
             if quizState == .correct || quizState == .finishedWrongAnswer {
                 AppButton(title: "다음으로!", action: onComplete)
             } else {

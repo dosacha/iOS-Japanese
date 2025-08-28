@@ -32,7 +32,7 @@ struct Step3_SentenceBuilderView: View {
             buttonReservedHeight: 84,
             horizontalMargin: 16
         ) {
-            // ▶︎ 본문(영상 포함)
+            // 본문(영상 포함)
             ScrollView {
                 VStack(spacing: 10) {
                     Text("Step 3: 문장 완성하기")
@@ -46,7 +46,7 @@ struct Step3_SentenceBuilderView: View {
 
                     Spacer().frame(height: 25)
 
-                    // ⬇️ 요청대로 본문 안에 영상 삽입
+                    // 요청대로 본문 안에 영상 삽입
                     CustomAVPlayerView(player: viewModel.player)
                         .frame(height: 250)
                         .cornerRadius(20)
@@ -117,7 +117,7 @@ struct Step3_SentenceBuilderView: View {
                 .allowsHitTesting(!showResultView)
             }
         } button: {
-            // ▶︎ 하단 버튼: 인트로 분기 제거 → 항상 노출
+            // 하단 버튼: 인트로 분기 제거 → 항상 노출
             HStack(spacing: 12) {
                 Button {
                     resetSentence()

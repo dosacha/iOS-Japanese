@@ -6,7 +6,7 @@ struct ConversationView: View {
     @State private var visibleMessages: [ConversationMessage] = []
     @State private var allMessagesShown = false
     @State private var showKeywordPopup = false
-    @State private var showKeywordsSheet = false   // ✅ 핵심단어 시트 표시 여부
+    @State private var showKeywordsSheet = false   // 핵심단어 시트 표시 여부
 
     private let synthesizer = AVSpeechSynthesizer()
 
@@ -86,7 +86,7 @@ struct ConversationView: View {
                     title: "핵심단어 보러가기",
                     subtitle: "오늘 대화에서 핵심단어를 복습해요",
                     actionTitle: "열기",
-                    onTap: {                      // ✅ 팝업 버튼 터치 시 시트 열기
+                    onTap: {                      // 팝업 버튼 터치 시 시트 열기
                         showKeywordsSheet = true
                     }
                 )
@@ -95,7 +95,7 @@ struct ConversationView: View {
                 .padding(.bottom, 12)
             }
         }
-        // ✅ 핵심: 시트가 닫히면 이 화면을 Pop → HomeView로 복귀
+        // 핵심: 시트가 닫히면 이 화면을 Pop → HomeView로 복귀
         .sheet(isPresented: $showKeywordsSheet, onDismiss: {
             dismiss()
         }) {

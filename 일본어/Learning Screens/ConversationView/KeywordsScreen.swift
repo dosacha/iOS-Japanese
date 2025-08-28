@@ -31,7 +31,7 @@ struct KeywordsScreen: View {
                             let willOn = !localOn.contains(item.id)
                             if willOn { localOn.insert(item.id) } else { localOn.remove(item.id) }
 
-                            // ✅ 즉시 영구 저장: Keywords → 오늘의 회화
+                            // 즉시 영구 저장: Keywords → 오늘의 회화
                             var convo = VocabularyStorage.shared.loadConversation()
                             convo = convo.toggled(item, isOn: willOn)
                             VocabularyStorage.shared.saveConversation(convo)
@@ -78,10 +78,10 @@ struct KeywordsScreen: View {
             .padding(.horizontal)
         }
         .padding(.top, 8)
-        // ⛔️ onAppear에서 기존 저장을 기준으로 미리 토글하지 않음 (요청 사항)
+        // onAppear에서 기존 저장을 기준으로 미리 토글하지 않음 (요청 사항)
     }
 
-    // ✅ 기존 로직 유지 (선택된 것들 일괄 저장 + 알림)
+    // 기존 로직 유지 (선택된 것들 일괄 저장 + 알림)
     private func saveSelectionsToConversation() {
         let selectedItems = keywords.filter { localOn.contains($0.id) }
         guard !selectedItems.isEmpty else { return }

@@ -24,7 +24,7 @@ struct ConversationBubbleView: View {
 
             VStack(alignment: message.isUser ? .trailing : .leading, spacing: 8) {
 
-                // ✅ 한 문장을 하나의 말풍선으로
+                // 한 문장을 하나의 말풍선으로
                 FuriganaTextView(
                     units: message.furigana,
                     tokenSpacing: 6,
